@@ -1,0 +1,543 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+
+    /* Color Palette Variables */
+    --color-primary: #003366; /* Navy Blue */
+    --color-primary-hover: #002244; /* Darker Navy Blue */
+    --color-secondary: #FFD700; /* Gold */
+    --color-secondary-hover: #E6C200; /* Darker Gold */
+    --color-text-on-primary: #FFFFFF;
+    --color-text-on-secondary: #333333; /* Dark text for Gold background */
+    --color-error: #dc3545; /* Standard error red */
+    --color-success: #28a745; /* Standard success green */
+    --color-warning: #ffc107; /* Standard warning yellow */
+    --color-text-on-warning: #333333;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 700px; /* Increased max-width for more complex screens */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.app-header h1 {
+    color: var(--color-primary); 
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+/* Base styles for main content containers */
+#auth-container, 
+#admin-panel, 
+#user-menu-container,
+#payment-screen-container,
+#game-screen-container,
+#history-screen-container,
+#define-matches-screen,
+#load-results-screen {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: none; /* All views hidden by default */
+}
+
+/* Make sure the active view is displayed */
+#auth-container.active-view,
+#admin-panel.active-view,
+#user-menu-container.active-view,
+#payment-screen-container.active-view,
+#game-screen-container.active-view,
+#history-screen-container.active-view,
+#define-matches-screen.active-view,
+#load-results-screen.active-view {
+    display: block;
+}
+
+
+.auth-form {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+}
+
+.auth-form.active-form {
+    display: flex; /* Show active form */
+}
+
+.auth-form h2, 
+#admin-panel h2, 
+#user-menu-container h2,
+#payment-screen-container h2,
+#game-screen-container h2,
+#history-screen-container h2,
+#define-matches-screen h2,
+#load-results-screen h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333; /* Keep titles dark for readability on white bg */
+    font-weight: 500;
+}
+
+#admin-panel h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #444;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+select.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff; /* Ensure select has white background */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus,
+select.form-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(0, 51, 102, 0.25); /* Adjusted to navy derived RGBA */
+    outline: none;
+}
+
+.form-group input.input-error {
+    border-color: var(--color-error);
+}
+.form-group input[type="text"]:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+
+.error-message {
+    color: var(--color-error);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    min-height: 1.2em; /* Reserve space */
+}
+
+.feedback-message {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    text-align: center;
+}
+.feedback-message.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+.feedback-message.error {
+    color: var(--color-error);
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+.feedback-message.neutral {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+}
+
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    margin-top: 0.5rem; 
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none; /* For <a> styled as button */
+    display: inline-block; /* For <a> styled as button */
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+.btn-primary:disabled,
+.btn-warning:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text-on-secondary);
+    margin-top: 1rem; 
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-secondary-hover);
+}
+
+#admin-panel .btn-secondary,
+#payment-screen-container .btn-secondary,
+#game-screen-container .btn-secondary,
+#history-screen-container .btn-secondary,
+#define-matches-screen .btn-secondary,
+#load-results-screen .btn-secondary {
+    margin-top: 0.75rem; 
+}
+
+
+.btn-menu {
+    background-color: var(--color-secondary); 
+    color: var(--color-text-on-secondary);
+    margin-bottom: 0.75rem; 
+}
+
+.btn-menu:disabled {
+    background-color: #a0a0a0; /* Keep disabled grey */
+    color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+.btn-menu:hover:not(:disabled) {
+    background-color: var(--color-secondary-hover);
+}
+
+.btn-warning {
+    background-color: var(--color-warning);
+    color: var(--color-text-on-warning);
+}
+.btn-warning:hover:not(:disabled) {
+    background-color: #e0a800; /* Darker warning yellow */
+}
+
+
+.toggle-form-text {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.toggle-form-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.toggle-form-text a:hover {
+    text-decoration: underline;
+}
+
+/* Admin Panel Specifics */
+.admin-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+.admin-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0.5rem;
+}
+.admin-action-btn {
+    margin-bottom: 0.5rem;
+}
+
+
+/* Admin Panel Table */
+#user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+#user-table th, #user-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+#user-table th {
+    background-color: #e9ecef; /* Keep neutral for readability */
+    font-weight: 500;
+}
+
+#no-users-message,
+#no-history-message {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+
+/* User Menu */
+#user-greeting {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; 
+    margin-bottom: 1.5rem;
+}
+
+/* Payment Screen */
+#payment-screen-container p {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.btn-mp { /* Mercado Pago button also uses primary color now */
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+    margin-bottom: 0.75rem;
+}
+.btn-mp:hover {
+    background-color: var(--color-primary-hover);
+}
+
+/* Game Screen */
+#matches-list {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.match-prediction-item {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.match-prediction-item p {
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #333;
+}
+
+.options-group {
+    display: flex;
+    justify-content: space-around;
+    gap: 0.5rem;
+}
+
+.options-group label {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    flex-grow: 1;
+    text-align: center;
+    color: #333;
+}
+
+.options-group input[type="radio"] {
+    display: none; /* Hide actual radio button */
+}
+
+.options-group input[type="radio"]:checked + label {
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary);
+    border-color: var(--color-primary-hover);
+}
+
+.options-group input[type="radio"]:disabled + label {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+.options-group input[type="radio"]:disabled + label:hover {
+    background-color: #e9ecef; /* No hover effect when disabled */
+}
+
+
+
+.options-group label:hover {
+    background-color: #e9ecef;
+}
+
+
+/* History Screen */
+#predictions-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.prediction-history-item {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.prediction-history-item h3 {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.prediction-history-item ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.prediction-history-item li {
+    font-size: 0.95rem;
+    padding: 0.25rem 0;
+    color: #454545;
+}
+.prediction-history-item li strong {
+    color: #333;
+}
+
+/* Admin Define/Load Screens */
+.admin-match-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+.admin-match-input-group label {
+    flex-basis: 100px; /* Adjust as needed */
+    font-size: 0.9rem;
+}
+.admin-match-input-group input[type="text"] {
+    flex-grow: 1;
+}
+
+#defined-matches-inputs-list .form-group,
+#official-results-inputs-list .form-group {
+    padding: 0.75rem;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    background-color: #fcfcfc;
+}
+#defined-matches-inputs-list .form-group p,
+#official-results-inputs-list .form-group p {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .app-container {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #auth-container, 
+    #admin-panel, 
+    #user-menu-container,
+    #payment-screen-container,
+    #game-screen-container,
+    #history-screen-container,
+    #define-matches-screen,
+    #load-results-screen {
+        padding: 1.5rem;
+    }
+
+    .app-header h1 {
+        font-size: 2rem;
+    }
+
+    .auth-form h2, 
+    #admin-panel h2, 
+    #user-menu-container h2,
+    #payment-screen-container h2,
+    #game-screen-container h2,
+    #history-screen-container h2,
+    #define-matches-screen h2,
+    #load-results-screen h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.65rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    #user-table th, #user-table td {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .options-group {
+        flex-direction: column; /* Stack radio options on small screens */
+    }
+
+    .admin-match-input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .admin-match-input-group label {
+        margin-bottom: 0.25rem;
+    }
+}
