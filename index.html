@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODE AB</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>PRODE AB</h1>
+        </header>
+
+        <main class="main-content">
+            <div id="auth-container">
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active-form">
+                    <h2>Iniciar Sesión</h2>
+                    <div class="form-group">
+                        <label for="login-usuario">Usuario</label>
+                        <input type="text" id="login-usuario" name="login-usuario" placeholder="Ingresa tu usuario" aria-label="Campo de usuario para iniciar sesión" required>
+                        <p class="error-message" aria-live="polite"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-contrasena">Contraseña</label>
+                        <input type="password" id="login-contrasena" name="login-contrasena" placeholder="Ingresa tu contraseña" aria-label="Campo de contraseña para iniciar sesión" required>
+                        <p class="error-message" aria-live="polite"></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ingresar</button>
+                    <p class="toggle-form-text">
+                        ¿No tienes cuenta? <a href="#" id="show-register-link" role="button">Regístrate aquí</a>
+                    </p>
+                </form>
+
+                <!-- Registration Form -->
+                <form id="register-form" class="auth-form">
+                    <h2>Crear Cuenta</h2>
+                    <div class="form-group">
+                        <label for="register-nombre">Nombre y Apellido</label>
+                        <input type="text" id="register-nombre" name="register-nombre" placeholder="Ingresa tu nombre completo" aria-label="Campo de nombre y apellido para registrarse" required>
+                        <p class="error-message" aria-live="polite"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-usuario">Usuario</label>
+                        <input type="text" id="register-usuario" name="register-usuario" placeholder="Elige un nombre de usuario" aria-label="Campo de usuario para registrarse" required>
+                        <p class="error-message" aria-live="polite"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-contrasena">Contraseña</label>
+                        <input type="password" id="register-contrasena" name="register-contrasena" placeholder="Crea una contraseña segura" aria-label="Campo de contraseña para registrarse" required>
+                        <p class="error-message" aria-live="polite"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="register-email" placeholder="Ingresa tu correo electrónico" aria-label="Campo de email para registrarse" required>
+                        <p class="error-message" aria-live="polite"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-telefono">Teléfono (Opcional)</label>
+                        <input type="tel" id="register-telefono" name="register-telefono" placeholder="Ingresa tu número de teléfono" aria-label="Campo de teléfono para registrarse (opcional)">
+                        <p class="error-message" aria-live="polite"></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                    <p class="toggle-form-text">
+                        ¿Ya tienes cuenta? <a href="#" id="show-login-link" role="button">Inicia sesión</a>
+                    </p>
+                </form>
+            </div>
+
+            <div id="admin-panel" class="view-panel" style="display: none;">
+                <h2>Panel de Administración</h2>
+                
+                <div class="admin-section">
+                    <h3>Gestionar Fechas y Resultados</h3>
+                    <button id="btn-go-to-define-matches" class="btn btn-primary admin-action-btn">Definir Partidos por Fecha</button>
+                    <button id="btn-go-to-load-results" class="btn btn-primary admin-action-btn">Cargar Resultados Oficiales</button>
+                </div>
+
+                <div class="admin-section">
+                    <h3>Acciones de Usuarios</h3>
+                    <button id="btn-show-registered-users" class="btn btn-primary admin-action-btn">Ver Usuarios Registrados</button>
+                </div>
+                
+                <div id="registered-users-section" class="admin-section" style="display: none;">
+                    <h3>Usuarios Registrados</h3>
+                    <table id="user-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre y Apellido</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-table-body">
+                            <!-- User rows will be inserted here -->
+                        </tbody>
+                    </table>
+                    <p id="no-users-message" style="display: none;">No hay usuarios registrados.</p>
+                </div>
+                <button id="admin-logout-btn" class="btn btn-secondary">Cerrar Sesión Admin</button>
+            </div>
+
+            <div id="define-matches-screen" class="view-panel" style="display: none;">
+                <h2>Definir Partidos por Fecha</h2>
+                <div class="form-group">
+                    <label for="define-fecha-select">Seleccionar Fecha:</label>
+                    <select id="define-fecha-select" class="form-control"></select>
+                </div>
+                <p id="define-fecha-status-message" class="feedback-message neutral" style="display: none; margin-bottom: 1rem;"></p>
+                <form id="define-matches-form">
+                    <div id="defined-matches-inputs-list">
+                        <!-- Inputs for 8 matches will be dynamically inserted here -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Definiciones</button>
+                    <button type="button" id="close-predictions-btn" class="btn btn-warning" style="margin-top: 0.5rem;">Cerrar Predicciones</button>
+                </form>
+                <p id="define-matches-feedback" class="feedback-message" style="display: none;"></p>
+                <button id="define-matches-back-btn" class="btn btn-secondary">Volver al Panel de Admin</button>
+            </div>
+
+            <div id="load-results-screen" class="view-panel" style="display: none;">
+                <h2>Cargar Resultados Oficiales por Fecha</h2>
+                <div class="form-group">
+                    <label for="results-fecha-select">Seleccionar Fecha:</label>
+                    <select id="results-fecha-select" class="form-control"></select>
+                </div>
+                <form id="load-results-form">
+                    <div id="official-results-inputs-list">
+                        <!-- Inputs for 8 official results will be dynamically inserted here -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Resultados</button>
+                </form>
+                <p id="load-results-feedback" class="feedback-message" style="display: none;"></p>
+                <button id="results-back-btn" class="btn btn-secondary">Volver al Panel de Admin</button>
+            </div>
+
+
+            <div id="user-menu-container" class="view-panel" style="display: none;">
+                <h2 id="user-greeting">Menú Principal</h2>
+                <div class="menu-options">
+                    <button id="btn-jugar" class="btn btn-menu">JUGAR</button>
+                    <button id="btn-historial-predicciones" class="btn btn-menu">MIS PREDICCIONES</button>
+                    <button id="btn-tabla-apertura" class="btn btn-menu">TABLA APERTURA</button>
+                    <button id="btn-tabla-clausura" class="btn btn-menu">TABLA CLAUSURA</button>
+                    <button id="btn-tabla-general" class="btn btn-menu">TABLA GENERAL</button>
+                    <button id="btn-resultados-oficiales" class="btn btn-menu">RESULTADOS OFICIALES</button>
+                    <button id="btn-ganadores" class="btn btn-menu">GANADORES</button>
+                </div>
+                <button id="user-logout-btn" class="btn btn-secondary">Cerrar Sesión</button>
+            </div>
+
+            <div id="payment-screen-container" class="view-panel" style="display: none;">
+                <h2>Activa tu Suscripción Mensual</h2>
+                <p>Para acceder al juego, necesitas una suscripción mensual activa.</p>
+                <a href="https://mercadopago.com.ar" target="_blank" id="mp-payment-link-btn" class="btn btn-primary btn-mp">Pagar con Mercado Pago</a>
+                <button id="confirm-payment-btn" class="btn btn-primary">Ya Realicé el Pago</button>
+                <button id="payment-back-to-menu-btn" class="btn btn-secondary">Volver al Menú</button>
+            </div>
+
+            <div id="game-screen-container" class="view-panel" style="display: none;">
+                <h2 id="game-screen-title">Realiza tus Predicciones</h2>
+                <form id="predictions-form">
+                    <div id="matches-list">
+                        <!-- Matches will be inserted here by JavaScript -->
+                    </div>
+                    <button type="submit" id="save-predictions-btn" class="btn btn-primary">Guardar Predicciones</button>
+                </form>
+                <p id="game-screen-message" class="feedback-message" style="display:none;"></p>
+                <button id="game-back-to-menu-btn" class="btn btn-secondary">Volver al Menú</button>
+            </div>
+            
+            <div id="history-screen-container" class="view-panel" style="display: none;">
+                <h2>MIS PREDICCIONES</h2>
+                <div id="predictions-history-list">
+                    <!-- Prediction history items will be inserted here -->
+                </div>
+                <p id="no-history-message" style="display: none;">No has realizado predicciones todavía.</p>
+                <button id="history-back-to-menu-btn" class="btn btn-secondary">Volver al Menú</button>
+            </div>
+
+        </main>
+    </div>
+    <script type="module" src="index.js"></script> <!-- MODIFIED HERE -->
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
